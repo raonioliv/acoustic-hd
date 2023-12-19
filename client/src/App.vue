@@ -1,26 +1,44 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div :class="themeValue">
+    <app-header
+      :theme="themeValue"
+      @toggleTheme="toggleDark()"
+    />
+			<router-view :theme="themeValue" v-slot="{Component}">
+        <transition name="fade" >
+          <component :is="Component"/>
+        </transition>
+      </router-view >
+    
+  </div>
 </template>
 
+
+<script setup>
+  import { useToggle, useDark, useStorage } from '@vueuse/core'
+  import { computed } from 'vue'
+  import { useStore } from 'vuex'
+  const store = useStore()
+  const isDark = useDark({
+    selector: 'body',
+    attribute: 'data-bs-theme',
+    valueDark: 'dark',
+    valueLight: 'light'
+  })
+  const toggleDark = useToggle(isDark)
+  const theme = useStorage('vueuse-color-scheme')
+  const themeValue = computed(() => { 
+    return theme.value === 'auto' ? 'light' : 'dark'
+  })
+
+</script>
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AppHeader from './components/AppHeader.vue';
+
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  components: { 
+    AppHeader
+  },
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

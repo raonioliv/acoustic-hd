@@ -1,0 +1,12 @@
+@import 'theme/main';
+
+@import 'bootstrapCustomImport/main';
+
+@import './components/partials/main.scss';
+
+
+
+
+html, body{ 
+    min-height: 100vw;
+}
