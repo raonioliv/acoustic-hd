@@ -1,0 +1,53 @@
+
+
+.flex { 
+    display: flex;
+}
+
+.cursor-pointer{ 
+    cursor: pointer;
+}
+
+.tab-panel { 
+    .tab-control{ 
+        padding: 0 5px;
+        gap: .375rem;
+        .tab-control__item{ 
+            cursor: pointer;
+            padding: .375rem;
+            border: 1px solid #494949;
+            border-radius: 4px;
+            text-align: center;
+            transition:  .3s;
+            input{ 
+                visibility: hidden;
+            }
+            &.active{ 
+                background-color: $red ;
+                color: $white;
+                border-color: $primary;
+
+                &:hover { 
+                    border-color: $redColorHover;
+                    background-color: $redColorHover;
+                }
+            }
+        }
+
+    }
+
+    .tab-content{ 
+        margin-top: (.375rem * 3) ;
+    }
+
+    &.horizontal{ 
+        display: flex;
+        gap: (.375rem * 2);
+        .tab-control{ 
+            display: flex;
+            flex-direction: column;
+        }
+    
+    }
+    
+}

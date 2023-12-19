@@ -1,0 +1,31 @@
+
+@import 'bootstrap/scss/bootstrap-utilities';
+@import 'bootstrap/scss/bootstrap-reboot';
+
+//COMPONENTS
+@import "bootstrap/scss/buttons";
+@import 'bootstrap/scss/grid';
+@import 'bootstrap/scss/tooltip';
+
+
+
+//FORMS
+@import "bootstrap/scss/forms/labels";
+@import "bootstrap/scss/forms/form-check";
+@import "bootstrap/scss/forms/form-control";
+@import "bootstrap/scss/forms/form-select";
+@import "bootstrap/scss/forms/form-range";
+@import "bootstrap/scss/forms/form-text";
+@import "bootstrap/scss/forms/input-group";
+@import "bootstrap/scss/forms/validation";
+@import "bootstrap/scss/forms/floating-labels";
+
+
+//MIXINS
+
+//UTILITIES
+
+//OVERRIDE
+@import 'bootstrapOverride/main';
+
+
