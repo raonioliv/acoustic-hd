@@ -47,7 +47,8 @@ function getRegistrationSchema(){
       .messages({
         'any.only': 'As senhas não coincidem.'
       }),
-
+    initials: Joi
+      .any()
   })
 }
 function getLoginSchema(){ 
@@ -84,6 +85,7 @@ function getValidationErrors(joiErrors){
   })
   return errors
 }
+
 module.exports = { 
   getRegistrationSchema,
   getLoginSchema,

@@ -1,26 +1,35 @@
 <template>
-        <button 
-        @click="goToRoute({name: '/register'})"
-        class="
-            btn 
-            btn-red
-            btn-shine
-            fw-semibold
-    ">
-        Entrar
-    </button>
-        
-    
+    <div class="d-flex align-center">
+        <v-btn 
+            color="secondary"
+            height="40px"
+            :variant="variant"
+            class="d-none d-md-block font-weight-bold"
+            v-if="!isAuthenticated"
+            @click="goToRoute({name: '/register'}, true)">
+
+            Entrar
+        </v-btn>
+    </div>
 </template>
 
 
 <script>
-export default {
-    
+import { mapGetters } from 'vuex'
 
+export default {
+    computed: { 
+        ...mapGetters('user', ['isAuthenticated']),
+        ...mapGetters('theme', ['theme']),
+
+        variant() { 
+            return this.theme === 'dark'  ? 'text' : 'flat'
+        }
+
+    },
     methods: { 
         goToRoute(route, needValidation){ 
-            var userAuthenticated = true
+            var userAuthenticated = this.isAuthenticated
             if(needValidation === true && !userAuthenticated ){ 
                 this.$router.push('register')
             }else{ 

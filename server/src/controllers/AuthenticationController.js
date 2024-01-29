@@ -22,8 +22,11 @@ module.exports = {
       })
     } catch (error) {
       res.status(400).send({ 
-        error: error.message,
-        msg: 'here' 
+        errors: {
+          email: {
+            msg: 'Email já cadastrado.'
+          } 
+        } 
       })
     } 
   }, 
@@ -46,7 +49,7 @@ module.exports = {
       if(!isPasswordValid){ 
         res.status(403).send({ 
           error: true, 
-          msg: 'Informações de login inválidas (PASSWORD)'
+          msg: 'Informações de login inválidas.'
         })
       }
 
@@ -63,5 +66,5 @@ module.exports = {
         msg: 'Ocorreu um erro. Por favor, tente novamente mais tarde.'
       })
     }
-  }
+  }, 
 }

@@ -1,53 +1,51 @@
 <template>
-    <div class="loginUser">
-        <form
-            @submit.prevent="login"
-            :class="theme">
-            <div class="form-group outlinedInput mb-3">
-                <input 
-                    v-model="userLogin"
-                    :class="{ 
-                        'is-invalid': error
-                    }"
-                    class="form-control" 
-                    id="userLogin" />
-                <label for="userLogin" class="form-label">Email</label>
-                <!-- <div v-text="errors['email']?.msg" class="invalid-feedback"></div> -->
-            </div>
-            <div class="form-group outlinedInput password">
-                <input 
-                    v-model="userPassword"
-                    :class="{ 
-                        'is-invalid': error
-                    }"
-                    :type="passwordState" 
-                    id="userPassword" 
-                    class="form-control" />
-                <i :class="passPreview" class="passPreview" @click="togglePasswordPreview"></i>
-                <label for="userPassword" class="form-label">Senha</label>
-                <div class="invalid-feedback invisible" v-text="error"></div>
-            </div>
-            <div :class="theme" class="login-errors error">
-                <p v-text="error" class="mb-3"></p>
-            </div>
-            <div class="btn-group">
-                <button 
-                    type="submit"
-                    class="btn btn-primary btn-shine w-100">
-                    Entrar
-                </button>
-            </div>
-        </form>
-    </div>
+    <form
+        @submit.prevent="login">
+        <c-input
+            v-model="email"
+            label="Email"
+            type="email"
+            placeholder="john_doe@meudominio.com"
+            :error="error"
+
+        />
+        <c-input
+            v-model="password"
+            label="Senha"
+            type="password"
+            :error="error"
+
+        />
+
+        <v-btn 
+            type="submit"
+            block
+            :loading="loading"
+            class="font-weight-bold"
+            color="primary"
+        >
+            Entrar
+        </v-btn>
+
+        <div class="invalid-feedback">{{ error }}</div>
+    </form>
 </template>
 
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
 import { mapGetters } from 'vuex';
-export default { 
-    name: 'LoginUser', 
+import CInput from './reusable/CInput.vue';
+export default {
+  components: { CInput }, 
 
+    data(){
+        return { 
+            email: '',
+            password: '', 
+            error: ''
+        }
+    },
     props: { 
         theme: { 
             type: String
@@ -55,42 +53,26 @@ export default {
     },
     computed: {
         ...mapGetters('user', { 
-            token: 'token'
+            token: 'token', 
+            loading: 'loading'
         }),
-        passPreview(){ 
-            return { 
-                open: this.passwordState === 'text',
-                closed: this.passwordState === 'password',
-                dark: this.theme === 'dark'
-            }        
-        }
     },
     methods: { 
         async login() { 
+            this.$store.commit('user/setLoading', true)
+            this.error = ''
             try {                
                 const res = await AuthenticationService.login({ 
-                    email: this.userLogin,
-                    password: this.userPassword
+                    email: this.email,
+                    password: this.password
                 }) 
-
-                this.$store.dispatch('user/setToken', res.data.token )
-                this.$store.dispatch('user/setUser', res.data.user )
-                this.$store.dispatch('user/setIsAuthenticated', true )
+                this.$store.dispatch('user/authenticateUser', res.data)
+                this.$router.push('/home')
             } catch (error) {
                 this.error = error.response.data.msg          
             }
+            this.$store.commit('user/setLoading', false)
         }, 
-        togglePasswordPreview() { 
-            if(this.passwordState == 'password') {
-                this.passwordState = 'text'
-            }else{ 
-                this.passwordState = 'password'
-            }
-        }
     }
 }
 </script>
-
-<style lang="scss">
-
-</style>

@@ -1,21 +1,42 @@
 <template>
-  <div>
+  <div >
     <div class="switcher">
-      <input :checked="isChecked" @change="$emit('toggleTheme')" type="checkbox" id="switch" />
+      <input :checked="isChecked" @change="toggleTheme" type="checkbox" id="switch" />
       <label for="switch" class="switch"></label>
     </div>
   </div>
 </template>
 
 
-<script setup>
-import { useStorage } from "@vueuse/core";
-import { computed } from "vue";
-  const theme = useStorage('vueuse-color-scheme')
+<script>
+import { computed } from 'vue'
 
-  const isChecked = computed(() => { 
-	return theme.value == 'dark' ? true : false
-  })
+// import { useStore } from 'vuex'
+// import { useStorage } from '@vueuse/core'
+import { useTheme } from 'vuetify'
+import { useStore } from 'vuex'
+export default {
+	setup(){ 
+		const storedTheme = localStorage.getItem('color-scheme')
+		const theme  = useTheme()
+		const store = useStore()
+		if(storedTheme){ 
+			theme.global.name.value = localStorage.getItem('color-scheme')
+			store.commit('theme/setTheme', theme.global.name.value)
+		}
+		return { 
+			toggleTheme: () => { 
+				theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
+				localStorage.setItem('color-scheme', theme.global.name.value)
+				store.commit('theme/setTheme', theme.global.name.value)
+				
+			}, 
+			isChecked: computed(() => { 
+				return theme.global.name.value == 'dark' ? true : false
+			})
+		}
+	}
+}
 </script>
 
 <style lang="scss">

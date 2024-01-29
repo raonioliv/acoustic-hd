@@ -1,121 +1,69 @@
 <template>
-    <div class="registerUser">
-        <div class="raoni">
-
+    <form 
+        @submit.prevent="register" 
+    >
+        <div class="form-row">
+            <c-input  
+                id="firstName"
+                required
+                :error="errors['firstName']"
+                label="Nome" 
+                class="outlinedInput" 
+                type="text" 
+                v-model="userFirstName" /> 
+            <c-input  
+                id="lastName"
+                required
+                :error="errors['lastName']"
+                label="Sobrenome" 
+                class="outlinedInput" 
+                type="text" 
+                v-model="userLastName" /> 
         </div>
-        <form 
-            :class="{
-                dark: theme === 'dark'
-            }"
-            @submit.prevent="register" 
-            class="registration-form home-page">
-            <h4 class="text-center"></h4>
-            <div class="form-row">
-                <div class="form-group outlinedInput" >
-                    <input  
-                        id="userFirstName" 
-                        v-model="userFirstName" 
-                        type="text" 
-                        name="firstName"
-                        class="form-control"
-                        :class="{'is-invalid' : errors['firstName']}"
-                    >
-                    <label 
-                        class="form-label" 
-                        for="userFirstName">
-                            Nome
-                    </label>
-                    <div v-text="errors['firstName']?.msg" class="invalid-feedback">
-                        
-                    </div>
-                </div>
-                <div class="form-group outlinedInput">
-                    <input  
-                        id="userLastName" 
-                        v-model="userLastName" 
-                        type="text" 
-                        class="form-control"
-                        name="lastName"
-                        :class="{'is-invalid' : errors['lastName']}"
-                        >
-                    <label 
-                        class="form-label" 
-                        for="userLastName">
-                        Sobrenome
-                    </label>
-                    <div v-text="errors['lastName']?.msg"  class="invalid-feedback"></div>
-                </div>
-            </div>
-            <div class="form-group outlinedInput">
-                <input 
-                    type="text" 
-                    id="emailInput" 
-                    v-model="email" 
-                    name="email" 
-                    class="form-control"
-                    :class="{'is-invalid' : errors['email']}"
-                    >
-                    
-                <label 
-                    class="form-label" 
-                    for="emailInput">
-                    Email
-                </label>
-                <div v-text="errors['email']?.msg"  class="invalid-feedback"></div>
-            </div>
-            <div class="form-group outlinedInput">
-                
-                <input 
-                v-model="password" 
-                :type="passwordState" 
-                id="userPassword" 
-                name="password"
-                class="form-control"  
-                :class="{'is-invalid' : errors['password']}"
-                >
-                <i :class="classObj" class="passPreview" @click="togglePasswordPreview"></i>
-                <label 
-                    class="form-label" 
-                    for="userPassword">
-                    Senha
-                </label>
-                <div v-text="errors['password']?.msg"  class="invalid-feedback"></div>
-                
-            </div>
-            <div class="form-group outlinedInput">
-                <input 
-                    class="form-control"  
-                    :type="passwordState" 
-                    id="userPasswordConfirm" 
-                    v-model="passwordConfirm" 
-                    name="passwordConfirm"
-                    :class="{'is-invalid' : errors['repeat_password']}"
-                >
-                <i :class="classObj" class="passPreview" @click="togglePasswordPreview"></i>
-                <label 
-                    class="form-label" 
-                    for="userPasswordConfirm">
-                    Confirme a senha 
-                </label>
-                <div v-text="errors['repeat_password']?.msg"  class="invalid-feedback"></div>
-            </div>
+        <c-input  
+            id="email"
+            required
+            :error="errors['email']"
+            placeholder="john_doe@meudominio.com" 
+            label="Email" 
+            class="outlinedInput" 
+            type="email" 
+            v-model="email" /> 
+        <c-input  
+            id="password"
+            required
+            :error="errors['password']"
+            label="Senha" 
+            class="outlinedInput" 
+            type="password" 
+            v-model="password" /> 
+        <c-input  
+            id="repeat_password"
+            required
+            :error="errors['repeat_password']"
+            label="Confirme a senha" 
+            class="outlinedInput" 
+            type="password" 
+            v-model="passwordConfirm" /> 
 
-
-            <div class="form-group">
-                <button
-                    class="btn btn-shine btn-primary w-100" 
-                    type="submit">
-                    Enviar
-                </button>
-            </div>
-        </form>
-    </div>
+        <v-btn
+            :loading="loading"
+            color="primary"
+            block
+            type="submit"
+        >
+            Enviar
+        </v-btn>         
+    </form>
 </template>
 
 <script>
 import AuthenticationService  from '@/services/AuthenticationService';
+import CInput from './reusable/CInput.vue';
+import { mapGetters } from 'vuex';
 
-export default { 
+export default {
+  components: { CInput }, 
     name: 'RegisterUser', 
     data(){ 
         return { 
@@ -124,47 +72,38 @@ export default {
             email: '',
             password: '', 
             passwordConfirm: '',
-            errors: {},
-            passwordState: 'password'
+            errors: {}
         }
     },
-    props: { 
-        theme: { 
-            type: String
-        }
-    },
-
     computed: { 
-        classObj(){ 
-            return { 
-                open: this.passwordState === 'text',
-                closed: this.passwordState === 'password', 
-                dark: this.theme === 'dark'
-            }
+        ...mapGetters('user', ['loading']),
+
+        initials(){ 
+            return this.userFirstName.charAt(0).toUpperCase() + this.userLastName.charAt(0).toUpperCase() 
         }
     },
     methods: { 
         async register() { 
+            this.$store.commit('user/setLoading', true)
+            this.errors = {}
             try {                
-                await AuthenticationService.register({ 
+                const { data } = await AuthenticationService.register({ 
                     firstName: this.userFirstName, 
                     lastName: this.userLastName,
                     email: this.email,
                     password: this.password,
-                    repeat_password: this.passwordConfirm
+                    repeat_password: this.passwordConfirm, 
+                    initials: this.initials
+                    
                 }) 
+
+                this.$store.dispatch('user/authenticateUser', data)
+                this.$router.push('/home')
             } catch (error) {
                 this.errors = error.response.data.errors       
             }
+            this.$store.commit('user/setLoading', false)
         }, 
-        
-        togglePasswordPreview() { 
-            if(this.passwordState == 'password') {
-                this.passwordState = 'text'
-            }else{ 
-                this.passwordState = 'password'
-            }
-        }
-    }
+    }, 
 }
 </script>

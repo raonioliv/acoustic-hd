@@ -1,20 +1,20 @@
 const namespaced = true
 const state = {
-  isDark: false
+  theme: 'light'
 }
 const getters = {
-  isDark(state) { 
-    return state.isDark
+  theme(state) { 
+    return state.theme
   }
 }
 const actions = {
-  isDark({commit}, data){ 
-    commit('setIsDark', data)
+  setTheme({commit}, data){ 
+    commit('setTheme', data)
   }
 }
 const mutations = {
-  isDark(state, data){ 
-    state.isDark = data
+  setTheme(state, data){ 
+    state.theme = data
   }
 }
 
