@@ -5,6 +5,7 @@ import {createRouter, createWebHashHistory} from 'vue-router'
 const routes = [
     { path: '/register', component: RegistrationLogin },
     { path: '/', component: HomeView, alias: '/home' },
+    { path: '/carousel', component: HomeView,},
 ]
 
 

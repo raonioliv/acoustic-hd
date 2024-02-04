@@ -31,6 +31,9 @@ module.exports = {
     } 
   }, 
   async login(req, res) { 
+    const a = req.headers 
+    console.log('>>>>>>>>>', a)
+
     try {
       const {email, password} = req.body
       const user = await User.findOne({ 
@@ -66,5 +69,5 @@ module.exports = {
         msg: 'Ocorreu um erro. Por favor, tente novamente mais tarde.'
       })
     }
-  }, 
+  }
 }

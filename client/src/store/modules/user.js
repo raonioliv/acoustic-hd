@@ -1,5 +1,5 @@
-var router = require('@/router').default
-
+import router from '@/router'
+import Api from '@/services/Api'
 const namespaced = true
 const state = {
     isAuthenticated: false,
@@ -39,20 +39,15 @@ const actions = {
     },
     authenticateUser({commit}, data){ 
         if(data.token && data.user){ 
-            var user = data.user
-            delete user.password
-            sessionStorage.removeItem('user')
             sessionStorage.removeItem('token')
             commit('setUser', data.user)
             commit('setToken', data.token)
             commit('setIsAuthenticated', true)
-            var userJson = JSON.stringify(user)
-            sessionStorage.setItem('user', userJson)
             sessionStorage.setItem('token', data.token)
+            Api.defaults.headers.common['Authentication'] = `Bearer ${data.token}`
         }
     }, 
     logout({commit}){ 
-        sessionStorage.removeItem('user')
         sessionStorage.removeItem('token')
         commit('setUser', {})
         commit('setToken', null)
@@ -76,7 +71,7 @@ const mutations = {
     }
 }
 
-module.exports = {
+export default {
   state,
   getters,
   actions,

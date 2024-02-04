@@ -18,7 +18,10 @@ const mutations = {
   }
 }
 
-module.exports = {
+
+
+
+export default {
   state,
   getters,
   actions,
