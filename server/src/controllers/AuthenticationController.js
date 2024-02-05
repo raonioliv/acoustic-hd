@@ -69,5 +69,12 @@ module.exports = {
         msg: 'Ocorreu um erro. Por favor, tente novamente mais tarde.'
       })
     }
+  }, 
+  async getUser(req, res, next){ 
+    try {
+      await console.log('caiu na rota');
+    } catch (error) {
+      
+    }
   }
 }

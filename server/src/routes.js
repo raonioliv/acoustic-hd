@@ -9,6 +9,11 @@ module.exports = (app) => {
   AuthenticationControllerPolicy.register,
   AuthenticationController.register), 
   app.post('/login',
-  AuthenticationController.login)
+  AuthenticationController.login),  
+  
+  app.get('/getUser', 
+  auth.isAuthenticated,
+  AuthenticationController.getUser)
+
 
 }
