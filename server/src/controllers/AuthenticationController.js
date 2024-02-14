@@ -31,9 +31,6 @@ module.exports = {
     } 
   }, 
   async login(req, res) { 
-    const a = req.headers 
-    console.log('>>>>>>>>>', a)
-
     try {
       const {email, password} = req.body
       const user = await User.findOne({ 
@@ -55,7 +52,7 @@ module.exports = {
           msg: 'Informações de login inválidas.'
         })
       }
-
+      delete user.password
       const userJson = user.toJSON() 
       const token = jwtSignUser(userJson)
       res.status(200).send({ 
@@ -70,11 +67,4 @@ module.exports = {
       })
     }
   }, 
-  async getUser(req, res, next){ 
-    try {
-      await console.log('caiu na rota');
-    } catch (error) {
-      
-    }
-  }
 }
