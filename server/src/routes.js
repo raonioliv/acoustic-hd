@@ -11,8 +11,8 @@ module.exports = (app) => {
   app.post('/login',
   AuthenticationController.login),  
   
-  app.get('/getUser', 
-  auth.isAuthenticated,
+  app.get('/profile', 
+  auth,
   AuthenticationController.getUser)
 
 

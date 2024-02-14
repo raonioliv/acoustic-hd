@@ -44,7 +44,7 @@ const actions = {
             commit('setToken', data.token)
             commit('setIsAuthenticated', true)
             sessionStorage.setItem('token', data.token)
-            Api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
+            Api.defaults.headers.common['Authorization'] = `bearer ${data.token}`
         }
     }, 
     logout({commit}){ 

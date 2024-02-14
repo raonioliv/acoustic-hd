@@ -7,14 +7,13 @@ let responseObj = {
     data: {}
 }
 passport.authenticate('jwt', (err, user, info) => {
-  var a = 1
    if (err) { 
       return next(err);
    }
    if (!user) {
        responseObj.data = info.message 
        responseObj.statusCode = 401 
-       responseObj.errorMsg = "user is not authenticated!!!!"
+       responseObj.errorMsg = "User is not authenticated."
        return res.status(responseObj.statusCode).json(responseObj)
    }
    req.user = user;
