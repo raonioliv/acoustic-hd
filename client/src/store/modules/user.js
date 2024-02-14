@@ -1,8 +1,11 @@
+import router from '@/router'
+import Api from '@/services/Api'
 const namespaced = true
 const state = {
     isAuthenticated: false,
     user: {}, 
-    token: ''
+    token: null,
+    loading: false, 
 }
 const getters = {
     token(state){ 
@@ -11,7 +14,9 @@ const getters = {
     user(state){ 
         return state.user
     }, 
-
+    loading(state){
+        return state.loading
+    },
     isAuthenticated(state){ 
         return state.isAuthenticated
     }
@@ -32,6 +37,23 @@ const actions = {
             commit('setIsAuthenticated', data)
         }
     },
+    authenticateUser({commit}, data){ 
+        if(data.token && data.user){ 
+            sessionStorage.removeItem('token')
+            commit('setUser', data.user)
+            commit('setToken', data.token)
+            commit('setIsAuthenticated', true)
+            sessionStorage.setItem('token', data.token)
+            Api.defaults.headers.common['Authorization'] = `bearer ${data.token}`
+        }
+    }, 
+    logout({commit}){ 
+        sessionStorage.removeItem('token')
+        commit('setUser', {})
+        commit('setToken', null)
+        commit('setIsAuthenticated', false)
+        router.push('/home')
+    }
 
 }
 const mutations = {
@@ -43,10 +65,13 @@ const mutations = {
     },
     setUser(state, data){ 
         state.user = data
+    }, 
+    setLoading(state, data){ 
+        state.loading = data
     }
 }
 
-module.exports = {
+export default {
   state,
   getters,
   actions,

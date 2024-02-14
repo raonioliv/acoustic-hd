@@ -1,52 +1,50 @@
 <template>
-    <div 
-        :class="{ 
-            'bg-dark': theme == 'dark'
-        }"
-        class="appHeader p-3">
-        <div @click="goToRoute({name: '/home'}, true)" class="logo">
-            <img src="../assets/faceMelter.png" alt="">
-        </div>
-        <div class="d-flex align-items-center gap-3">
-            <toggle-theme 
-                :theme="theme"
-                sliderWidth="90px"
-                @toggleTheme="$emit('toggleTheme')"
-            />
+        <div>
+            <v-toolbar class="px-4 py-2" :color="theme === 'dark' ? 'background' : 'primary'">
+                <v-toolbar-items class="cursor-pointer">
+                    <router-link to="/">
+                        <v-img 
+                            width="180px" 
+                            src="@/assets/faceMelter.png">
+                        </v-img>
+                    </router-link>
+                </v-toolbar-items>
+                <v-spacer></v-spacer>
+                <v-toolbar-items class="w-50 justify-end">
+                    <search-bar class="d-none d-md-flex"></search-bar>
+                    <toggle-theme class="d-none d-md-flex align-center mr-3" />
+                    <sign-in-button v-if="!isAuthenticated"></sign-in-button>
+                    <account-menu v-else></account-menu>
+                    <menu-mobile class="d-flex align-center py-3 d-md-none"></menu-mobile>
+                </v-toolbar-items>
 
 
-            <div v-if="!isAuthenticated">
-                <sign-in-button />
-            </div>
-            <div v-else>
-                <account-menu-toggler />
-            </div>
+            </v-toolbar>
         </div>
-    </div>
 </template>
 
 <script>
 import ToggleTheme from './ToggleTheme.vue'
-import { mapGetters } from 'vuex'
-import accountMenuToggler from './accountMenuToggler'
+import SearchBar from './SearchBar.vue'
 import SignInButton from './SignInButton.vue'
+import MenuMobile from './MenuMobile.vue'
+
+import { mapGetters } from 'vuex'
+import AccountMenu from './AccountMenu.vue'
 export default {
-  components: { 
+    components: { 
         ToggleTheme,
-        accountMenuToggler, 
-        SignInButton 
-    }, 
-    name: 'HeaderMenu',
-    props: { 
-        theme: { 
-            type: String, 
-        }
+        SignInButton,
+        SearchBar,
+        MenuMobile,
+        AccountMenu
     },
     computed: { 
         ...mapGetters('user', { 
             isAuthenticated: 'isAuthenticated', 
             user: 'user', 
-        })
+        }),
+        ...mapGetters('theme', ['theme']),
     },
 }
 
@@ -54,19 +52,8 @@ export default {
 </script>
 
 <style lang="scss">
+    .v-navigation-drawer__scrim{ 
+        background: none;
+    }
 
-    .appHeader{ 
-        display: flex;
-        justify-content: space-between;
-        border-bottom: .5px solid #f8f9fa;
-        background: #850e1c;
-    }
-    .logo{ 
-        width: 100px;
-        cursor: pointer;
-        img{ 
-            width: 100%;
-            transform: rotate(-10deg);
-        }
-    }
 </style>

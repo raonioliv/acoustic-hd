@@ -22,8 +22,11 @@ module.exports = {
       })
     } catch (error) {
       res.status(400).send({ 
-        error: error.message,
-        msg: 'here' 
+        errors: {
+          email: {
+            msg: 'Email já cadastrado.'
+          } 
+        } 
       })
     } 
   }, 
@@ -46,10 +49,10 @@ module.exports = {
       if(!isPasswordValid){ 
         res.status(403).send({ 
           error: true, 
-          msg: 'Informações de login inválidas (PASSWORD)'
+          msg: 'Informações de login inválidas.'
         })
       }
-
+      delete user.password
       const userJson = user.toJSON() 
       const token = jwtSignUser(userJson)
       res.status(200).send({ 
@@ -61,6 +64,21 @@ module.exports = {
       res.status(500).send({ 
         error: error.message,
         msg: 'Ocorreu um erro. Por favor, tente novamente mais tarde.'
+      })
+    }
+  }, 
+  async getUser(req, res){ 
+    try {
+        const user = await User.findOne({ 
+          where: { 
+            id: req.user.id 
+          }
+        })
+        user.password = undefined 
+      res.status(200).send(user)
+    } catch (error) {
+      res.status(500).send({ 
+        msg: 'An error has ocurred. Please, try again later.'
       })
     }
   }

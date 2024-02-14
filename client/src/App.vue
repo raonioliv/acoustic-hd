@@ -1,44 +1,28 @@
 <template>
-  <div :class="themeValue">
-    <app-header
-      :theme="themeValue"
-      @toggleTheme="toggleDark()"
-    />
-			<router-view :theme="themeValue" v-slot="{Component}">
-        <transition name="fade" >
-          <component :is="Component"/>
-        </transition>
-      </router-view >
-    
-  </div>
+    <v-app>
+      <app-header />
+      <v-container class="fill-height">
+        <v-main class="pa-0">
+          <router-view/>
+        </v-main>
+      </v-container>
+  </v-app>
 </template>
 
-
-<script setup>
-  import { useToggle, useDark, useStorage } from '@vueuse/core'
-  import { computed } from 'vue'
-  import { useStore } from 'vuex'
-  const store = useStore()
-  const isDark = useDark({
-    selector: 'body',
-    attribute: 'data-bs-theme',
-    valueDark: 'dark',
-    valueLight: 'light'
-  })
-  const toggleDark = useToggle(isDark)
-  const theme = useStorage('vueuse-color-scheme')
-  const themeValue = computed(() => { 
-    return theme.value === 'auto' ? 'light' : 'dark'
-  })
-
-</script>
 <script>
-import AppHeader from './components/AppHeader.vue';
-
-
+import '@/scss/global.scss'
+import AppHeader from '@/components/AppHeader'
+import { mapGetters } from 'vuex'
 export default {
+  name: 'App',
   components: { 
     AppHeader
   },
+  computed: { 
+    ...mapGetters('user', ['token'])
+  }, 
+  mounted(){ 
+    this.$store.dispatch('tracker/begin')
+  }
 }
 </script>
