@@ -31,7 +31,7 @@ export default {
         goToRoute(route, needValidation){ 
             var userAuthenticated = this.isAuthenticated
             if(needValidation === true && !userAuthenticated ){ 
-                this.$router.push('register')
+                this.$router.push('/register')
             }else{ 
                 this.$router.push(route.name)
             }

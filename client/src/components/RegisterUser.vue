@@ -72,7 +72,8 @@ export default {
             email: '',
             password: '', 
             passwordConfirm: '',
-            errors: {}
+            errors: {}, 
+            loading: false
         }
     },
     computed: { 
@@ -84,7 +85,7 @@ export default {
     },
     methods: { 
         async register() { 
-            this.$store.commit('user/setLoading', true)
+            this.loading = true
             this.errors = {}
             try {                
                 const { data } = await AuthenticationService.register({ 
@@ -102,7 +103,7 @@ export default {
             } catch (error) {
                 this.errors = error.response.data.errors       
             }
-            this.$store.commit('user/setLoading', false)
+            this.loading = false
         }, 
     }, 
 }

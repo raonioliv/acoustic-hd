@@ -1,11 +1,13 @@
 import router from '@/router'
 import Api from '@/services/Api'
+import SecureLS from 'secure-ls'
+
+const ls = new SecureLS({isCompression: false})
 const namespaced = true
 const state = {
     isAuthenticated: false,
     user: {}, 
     token: null,
-    loading: false, 
 }
 const getters = {
     token(state){ 
@@ -44,7 +46,7 @@ const actions = {
             commit('setToken', data.token)
             commit('setIsAuthenticated', true)
             sessionStorage.setItem('token', data.token)
-            Api.defaults.headers.common['Authorization'] = `bearer ${data.token}`
+            Api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
         }
     }, 
     logout({commit}){ 
@@ -52,7 +54,9 @@ const actions = {
         commit('setUser', {})
         commit('setToken', null)
         commit('setIsAuthenticated', false)
+        ls.remove('ahd-user')
         router.push('/home')
+        Api.defaults.headers.common['Authorization'] = null
     }
 
 }

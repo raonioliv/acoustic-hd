@@ -19,7 +19,11 @@ fs
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes)
     db[model.name] = model
   })
-  
+  Object.keys(db).forEach(function(modelKey) {
+    if('associate' in db[modelKey]){ 
+      db[modelKey].associate(db)
+    }
+  })
   db.sequelize = sequelize
   db.Sequelize = Sequelize
 module.exports = db

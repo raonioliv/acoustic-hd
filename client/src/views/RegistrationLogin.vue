@@ -1,6 +1,6 @@
 <template>  
-  <v-container>
-    <v-row v-if="!isAuthenticated" justify="center">
+  <v-container class="fill-height">
+    <v-row align="center" v-if="!isAuthenticated" justify="center">
       <div class="tabs-container">
         <v-tabs
 

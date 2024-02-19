@@ -15,6 +15,7 @@
             v-if="isAuthenticated"
             class="py-3"
             :title="userName"
+            
         >
             <template v-slot:append>
                 <v-avatar
@@ -25,6 +26,7 @@
             </template>
             <template v-slot:prepend>
                 <v-btn
+                    class="py-2"
                     icon="mdi-chevron-left"
                     @click.stop="drawer = !drawer"
                 >
@@ -120,3 +122,7 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+</style>

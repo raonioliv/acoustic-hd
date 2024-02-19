@@ -1,5 +1,4 @@
 var bcrypt = require('bcrypt')
-
 module.exports = (sequelize, dataTypes) => { 
   const user = sequelize.define('User', { 
     firstName: { 
@@ -37,6 +36,10 @@ module.exports = (sequelize, dataTypes) => {
   });
   user.prototype.comparePassword = async (password, hash) => { 
     return await bcrypt.compareSync(password, hash)
+  }
+
+  user.associate = function(models){ 
+
   }
   return user
 }
