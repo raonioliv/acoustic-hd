@@ -84,7 +84,7 @@ export default {
             required: false, 
         }, 
         error: { 
-            type: Object,
+            type: [Object, String],
             required: false, 
             default: () => {},
         }, 

@@ -7,7 +7,6 @@ import tracker from './modules/tracker'
 import SecureLS from 'secure-ls'
 
 const ls = new SecureLS({isCompression: false})
-console.log(ls);
 export default createStore({
   modules: {
     user,

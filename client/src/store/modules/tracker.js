@@ -1,15 +1,17 @@
 import Api from '@/services/Api'
-
+import SecureLS from 'secure-ls'
+const ls = new SecureLS({isCompression: false})
 const namespaced = true
 const state = {
-
+    loading: false, 
 }
 const getters = {
 
 }
 const actions = {
     async begin(){ 
-        const token = sessionStorage.getItem('token')
+        const {token} = JSON.parse(ls.get('ahd-user')).user
+        // console.log(token);
         if(token){
             Api.defaults.headers.common['Authorization'] = `bearer ${token}`
         }

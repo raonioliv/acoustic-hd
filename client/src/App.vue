@@ -2,8 +2,8 @@
     <v-app>
       <app-header />
       <v-container class="fill-height">
-        <v-main class="pa-0">
-          <router-view/>
+        <v-main class="pa-0 fill-height">
+          <router-view></router-view>
         </v-main>
       </v-container>
   </v-app>

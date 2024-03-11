@@ -3,6 +3,7 @@
         @submit.prevent="login">
         <c-input
             v-model="email"
+            id="userLogin"
             label="Email"
             type="email"
             placeholder="john_doe@meudominio.com"
@@ -12,6 +13,7 @@
         <c-input
             v-model="password"
             label="Senha"
+            id="userPassword"
             type="password"
             :error="error"
 
@@ -43,7 +45,8 @@ export default {
         return { 
             email: '',
             password: '', 
-            error: ''
+            error: '', 
+            loading: false
         }
     },
     props: { 
@@ -54,12 +57,11 @@ export default {
     computed: {
         ...mapGetters('user', { 
             token: 'token', 
-            loading: 'loading'
         }),
     },
     methods: { 
         async login() { 
-            this.$store.commit('user/setLoading', true)
+            this.loading = true
             this.error = ''
             try {                
                 const res = await AuthenticationService.login({ 
@@ -71,7 +73,7 @@ export default {
             } catch (error) {
                 this.error = error.response.data.msg          
             }
-            this.$store.commit('user/setLoading', false)
+            this.loading = false
         }, 
     }
 }

@@ -1,85 +1,117 @@
 <template>
-    <div>
+    <v-toolbar-items>
         <v-app-bar-nav-icon
+            aria-label="Abrir menu lateral"
             height="100%" 
             variant="text" 
             @click.stop="drawer = !drawer">
         </v-app-bar-nav-icon>
-        <v-navigation-drawer
-            class="d-md-none"
-            v-model="drawer"
-            location="right"
-            :color="theme === 'light' ? 'primary' : 'background' "
-        > 
-        <v-list-item
-            v-if="isAuthenticated"
-            class="py-3"
-            :title="userName"
-        >
-            <template v-slot:append>
-                <v-avatar
-                    color="cyan"
-                >
-                    {{user.initials}}
-                </v-avatar>
-            </template>
-            <template v-slot:prepend>
-                <v-btn
-                    icon="mdi-chevron-left"
-                    @click.stop="drawer = !drawer"
-                >
+        <aside>
+            <v-navigation-drawer
+                class="d-md-none"
+                v-model="drawer"
+                location="right"
+                :color="theme === 'light' ? 'primary' : 'background' "
+            > 
 
-                </v-btn>
-            </template>
-        </v-list-item>
-        <v-list-item
-            v-else
-            class="py-3 align-center"
-            
-        >
-            <v-btn 
-                class="py-3"
-                @click="goToRoute({name: '/register'}, true)"
-            >
-                Entrar
-            </v-btn>
-            <template v-slot:prepend>
-                <v-btn
+                <v-list-item
+                    v-if="isAuthenticated"
                     class="py-3"
-                    icon="mdi-chevron-left"
-                    @click.stop="drawer = !drawer"
+                    
                 >
+                    <span class="ml-2">{{userName}}</span>
+                    <template v-slot:append>
+                        <v-avatar
+                            color="cyan"
+                        >
+                            {{user.initials}}
+                        </v-avatar>
+                    </template>
+                    <template v-slot:prepend>
+                        <v-btn
+                            aria-label="Fechar menu lateral"
+                            class="py-2"
+                            icon="mdi-chevron-left"
+                            @click.stop="drawer = !drawer"
+                        >
 
-                </v-btn>
-            </template>
-        </v-list-item>
-
-        <template v-slot:append >
-            <v-container >
-                <v-row justify="end">
-                    <toggle-theme class="pa-2"></toggle-theme>
-                </v-row>
-                <v-row 
-                    v-if="isAuthenticated"  
-                    align="center" 
-                    class="py-3">
+                        </v-btn>
+                    </template>
+                </v-list-item>
+                <v-list-item
+                    v-else
+                    class="py-3 align-center"
+                    
+                >
                     <v-btn 
-                        @click="logout"
-                        :loading="loading"
-                        color="brand-red" 
-                        variant="flat" 
                         class="py-3"
-                        block>
-                        Logout
+                        @click="goToRoute({name: '/register'}, true)"
+                    >
+                        Entrar
                     </v-btn>
-                </v-row>
-            </v-container>
-        </template>
+                    <template v-slot:prepend>
+                        <v-btn
+                            class="py-3"
+                            icon="mdi-chevron-left"
+                            @click.stop="drawer = !drawer"
+                        >
 
-        <v-divider></v-divider>
-
-        </v-navigation-drawer>
-    </div>
+                        </v-btn>
+                    </template>
+                </v-list-item>
+            <v-divider></v-divider>
+            <nav>
+                <v-list nav>
+                    <v-list-item
+                        to="/profile"
+                        title="Minha conta"
+                        prepend-icon="mdi-account"
+                    >
+                    </v-list-item>
+                    <v-list-item
+                        to="/bookmarks"
+                        title="Favoritos"
+                        prepend-icon="mdi-star"
+                    >
+                    </v-list-item>
+                    <v-list-item
+                        to="/songs"
+                        title="Explorar"
+                        prepend-icon="mdi-compass"
+                    >
+                    </v-list-item>
+                    <!-- <v-list-item
+                        to="/lists"
+                        title="Listas"
+                        prepend-icon="mdi-playlist-music"
+                    >
+                    </v-list-item> -->
+                </v-list>
+            </nav>
+            <template v-slot:append >
+                <v-container >
+                    <v-row justify="end">
+                        <toggle-theme class="pa-2"></toggle-theme>
+                    </v-row>
+                    <v-row 
+                        v-if="isAuthenticated"  
+                        align="center" 
+                        class="py-3">
+                        <v-btn 
+                            @click="logout"
+                            :loading="loading"
+                            color="brand-red" 
+                            variant="flat" 
+                            class="py-3"
+                            block>
+                            Logout
+                        </v-btn>
+                    </v-row>
+                </v-container>
+            </template>
+            </v-navigation-drawer>
+        </aside>
+    </v-toolbar-items>
 </template>
 
 <script>
@@ -120,3 +152,7 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+</style>

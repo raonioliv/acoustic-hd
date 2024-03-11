@@ -60,7 +60,6 @@
 <script>
 import AuthenticationService  from '@/services/AuthenticationService';
 import CInput from './reusable/CInput.vue';
-import { mapGetters } from 'vuex';
 
 export default {
   components: { CInput }, 
@@ -72,19 +71,18 @@ export default {
             email: '',
             password: '', 
             passwordConfirm: '',
-            errors: {}
+            errors: {}, 
+            loading: false
         }
     },
     computed: { 
-        ...mapGetters('user', ['loading']),
-
         initials(){ 
             return this.userFirstName.charAt(0).toUpperCase() + this.userLastName.charAt(0).toUpperCase() 
         }
     },
     methods: { 
         async register() { 
-            this.$store.commit('user/setLoading', true)
+            this.loading = true
             this.errors = {}
             try {                
                 const { data } = await AuthenticationService.register({ 
@@ -102,8 +100,20 @@ export default {
             } catch (error) {
                 this.errors = error.response.data.errors       
             }
-            this.$store.commit('user/setLoading', false)
+            this.loading = false
         }, 
     }, 
 }
 </script>
+
+<style lang="scss">
+.form-row { 
+    display: flex;
+    gap: 20px;
+
+
+    & > div { 
+        flex-grow: 1 ;
+    }
+}
+</style>
