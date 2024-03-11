@@ -7,9 +7,7 @@ export default {
     login(credentials){ 
         return Api.post('login', credentials)
     },
-    profile(){ 
-        return Api.get('profile')
-    }
+
 }
 
 

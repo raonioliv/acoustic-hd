@@ -1,6 +1,10 @@
 <template>
-  <div >
-    <div class="switcher">
+  <div>
+    <div 
+		tabindex="0"
+		aria-label="Mudar tema"
+		role="button"
+		class="switcher">
       <input :checked="isChecked" @change="toggleTheme" type="checkbox" id="switch" />
       <label for="switch" class="switch"></label>
     </div>

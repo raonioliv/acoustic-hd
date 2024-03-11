@@ -1,4 +1,5 @@
 <template>
+<section>
     <content-panel
         class="h-100"
         title="Player"
@@ -13,6 +14,7 @@
             frameborder="0">
         </iframe>
     </content-panel>
+</section>
 </template>
 
 <script>
@@ -23,13 +25,12 @@ export default {
 
     computed: {
         url(){ 
-            return `https://www.youtube.com/embed/` + this.videoId
+            return `https://www.youtube.com/embed/` + this.song.youtubeId
         }, 
     },
     props: { 
-        videoId: { 
+        song: { 
             required: true, 
-            type: String
         }
     }
 }

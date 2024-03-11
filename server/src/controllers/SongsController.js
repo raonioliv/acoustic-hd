@@ -26,7 +26,6 @@ module.exports = {
       res.status(200).send(songs)
 
     } catch (error) {
-      console.log(error);
       res.status(500).send({
         msg: 'Ocorreu um erro ao buscar as músicas.'
       })
@@ -70,7 +69,6 @@ module.exports = {
         song: song
       })
     } catch (error) {
-      console.log(error);
       res.status(500).send({ 
         msg: 'Ocorreu um erro ao tentar encontrar a música.'
       })

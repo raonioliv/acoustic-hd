@@ -11,7 +11,7 @@
                 cols="12"
                 md="6"
             >
-                <song-player :videoId="song.youtubeId"></song-player>
+                <song-player :song="song"></song-player>
             </v-col>
         </v-row>
 
@@ -20,13 +20,13 @@
                 cols="12"
                 md="6"
             >
-                <song-tab :song-tab="song.tab"></song-tab>
+                <song-tab :song="song"></song-tab>
             </v-col>
             <v-col
                 cols="12"
                 md="6"
             >
-                <song-lyrics :songLyrics="song.lyrics"></song-lyrics>
+                <song-lyrics :song="song"></song-lyrics>
             </v-col>
         </v-row>
     </v-container>

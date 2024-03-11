@@ -1,4 +1,5 @@
 <template>
+<section>
     <content-panel 
         prepend-icon-header="mdi-guitar-acoustic"
         title-uppercase 
@@ -7,11 +8,12 @@
             rows="10"
             max-rows="30"
             readOnly
-            :model-value="songTab"
+            :model-value="song.tab"
         >
 
         </v-textarea>
     </content-panel>
+</section>
 </template>
 
 <script>
@@ -21,9 +23,8 @@ export default {
         ContentPanel
     }, 
     props: { 
-        songTab: { 
+        song: { 
             required: true, 
-            type: String
         }
     }
 }

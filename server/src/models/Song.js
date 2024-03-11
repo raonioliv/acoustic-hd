@@ -13,6 +13,6 @@ module.exports = (sequelize, DataTypes) => {
   })
   song.associate = function(models){ 
   }
-  console.log(song);
+
   return song
 }

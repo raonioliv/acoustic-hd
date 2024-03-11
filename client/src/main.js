@@ -4,6 +4,23 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 import { loadFonts } from './plugins/webfontloader'
+import SecureLS from 'secure-ls'
+
+
+const ls = new SecureLS({isCompression: false})
+router.beforeEach((to, from, next) => { 
+  const publicPage = ['/login', '/register', '/songs']
+  const authRequired = !publicPage.includes(to.path)
+  const user = JSON.parse(ls.get('ahd-user'))?.user
+  const isAuthenticated = user.token ? true : false
+  
+  if(!isAuthenticated && authRequired){ 
+    next('/register')
+  }else{ 
+    next()
+  }
+})
+
 loadFonts()
 createApp(App)
   .use(router)

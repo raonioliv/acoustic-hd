@@ -3,17 +3,18 @@
         <template v-slot:activator="{ props }">
             <v-btn
             icon
+            aria-label="Menu"
             v-bind="props"
             class="d-none d-md-block mr-3"
             >
             <v-avatar
-                color="brown"
+                :color="avatarColor"
             >
                 <span class="text-h5">{{ user.initials }}</span>
             </v-avatar>
             </v-btn>
         </template>
-        <div class="bg-white text-center">
+        <nav class="bg-white text-center">
             <h3>{{ user.fullName }}</h3>
             <p class="text-caption mt-1 py-2">
             {{ user.email }}
@@ -36,7 +37,7 @@
             >
             Sair
             </v-btn>
-        </div>
+        </nav>
     </v-menu>
 </template>
 
@@ -46,7 +47,7 @@ import { mapGetters } from 'vuex'
 
 export default {
     computed: { 
-        ...mapGetters('user', ['user', 'isAuthenticated'])
+        ...mapGetters('user', ['user', 'isAuthenticated', 'avatarColor'])
     },
 
     methods: { 
@@ -62,7 +63,8 @@ export default {
             }else{ 
                 this.$router.push(route.name)
             }
-        }
+        }, 
+
     }
 }
 </script>

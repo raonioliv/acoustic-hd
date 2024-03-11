@@ -7,7 +7,7 @@
             rows="10"
             max-rows="30"
             readOnly
-            :model-value="songLyrics"
+            :model-value="song.lyrics"
         >
 
         </v-textarea>
@@ -21,9 +21,8 @@ export default {
         ContentPanel
     }, 
     props: { 
-        songLyrics: { 
+        song: { 
             required: true, 
-            type: String
         }
     }
 }

@@ -5,27 +5,45 @@
                 <content-panel
                     title="Dados da música"
                 >
-                        <v-text-field 
+                        <v-text-field
+                            :rules="[
+                                value => !!value
+                            ]" 
                             v-model="song.title"
                             label="Nome"
                         />
                         <v-text-field 
+                            :rules="[
+                                value => !!value
+                            ]"
                             v-model="song.artist"
                             label="Artista"
                         />
                         <v-text-field 
+                            :rules="[
+                                value => !!value
+                            ]"
                             v-model="song.genre"
                             label="Gênero"
                         />
                         <v-text-field 
+                            :rules="[
+                                value => !!value
+                            ]"
                             v-model="song.album"
                             label="Álbum"
                         />
                         <v-text-field 
+                            :rules="[
+                                value => !!value
+                            ]"
                             v-model="song.albumImageUrl"
                             label="Imagem do álbum (URL)"
                         />
                         <v-text-field 
+                            :rules="[
+                                value => !!value
+                            ]"
                             v-model="song.youtubeId"
                             label="ID youtube"
                         />
@@ -36,11 +54,17 @@
                     title="Estrutura musical"
                 >
                     <v-textarea 
+                        :rules="[
+                                value => !!value
+                        ]"
                         rows="7"
                         v-model="song.lyrics"
                         label="Letra"
                     />
                     <v-textarea 
+                        :rules="[
+                            value => !!value
+                        ]"
                         rows="7"
                         v-model="song.tab"
                         label="Cifra"
@@ -51,6 +75,7 @@
         <v-row>
             <v-col class="d-flex justify-center justify-md-end mx-5">
                 <v-btn
+                    :loading="loading"
                     type="submit"
                     class="font-weight-bold"
                     color="primary"
@@ -82,6 +107,7 @@ export default {
                 tab: ''
             }, 
             error: null,
+            loading: false
         }
     },
     components: { 
@@ -90,12 +116,14 @@ export default {
     methods: { 
         async createSong(){ 
             this.error = null
+            this.loading = true
             const allFieldsFilled = Object
                 .keys(this.song)
                 .every(key => !!this.song[key])
 
                 if(!allFieldsFilled){ 
                     this.error = "Preencha todos os campos."
+                    this.loading = false
                     return
                 }
             try {
@@ -104,6 +132,7 @@ export default {
             } catch (error) {
                 this.error = error.response
             }
+            this.loading = false
         }
     }
 }

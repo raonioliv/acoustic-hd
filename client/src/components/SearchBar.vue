@@ -3,7 +3,7 @@
         autofocus
         ref="search"
         :model-value="search"
-        label="Search tabs"
+        label="Pesquisar músicas"
         hide-details
         append-inner-icon="mdi-search"
         @input="$emit('update:modelValue', $event.target.value)"

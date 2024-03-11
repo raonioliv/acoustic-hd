@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import SongForm from '@/components/song/SongForm.vue'
+import SongForm from '@/components/Songs/SongForm.vue'
 
 export default {
   components: { SongForm },

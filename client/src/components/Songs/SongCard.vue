@@ -9,7 +9,6 @@
             
         >
             <v-img
-                width="300px"
                 :src="song.albumImageUrl"
             >
             </v-img>
@@ -19,10 +18,8 @@
             <v-card-subtitle class="font-weight-bold mb-3">{{ song.artist }}</v-card-subtitle>
 
             <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn icon="mdi-heart-outline">
-
-                </v-btn>
+                <!-- <v-spacer></v-spacer>
+                <v-btn icon="mdi-heart-outline"></v-btn>
                 <v-menu >
                     <template v-slot:activator="{ props }">
                         <v-btn
@@ -51,7 +48,7 @@
                             
                         </v-list-item>
                     </v-list>
-                </v-menu>
+                </v-menu> -->
             </v-card-actions>
         </v-card>
     </v-hover>

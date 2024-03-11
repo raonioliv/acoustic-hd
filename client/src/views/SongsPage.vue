@@ -9,6 +9,7 @@
                 >
                     <template v-if="isAuthenticated" v-slot:action>
                         <v-btn 
+                            aria-label="Adicionar música nova"
                             variant="elevated" 
                             class="font-weight-bold"
                             :color="theme === 'dark' ? 'transparent' : 'white'" 
@@ -23,11 +24,13 @@
                             <search-bar @update:modelValue="searchQuery => fetchSongs(searchQuery)" :search="searchQuery" class="w-100"/>
                         </v-row>
                         <v-row
-                            justify-xl="start"
-                            justify="space-around"
+
                         >
                             <v-col
-                                cols="auto"
+                                cols="12"
+                                sm="6"
+                                md="4"
+                                xl="2"
                                 v-for="(song, index) in songs" 
                                 :key="index"
                             >
@@ -54,7 +57,7 @@
 import { mapGetters } from 'vuex'
 import ContentPanel from '../components/reusable/ContentPanel.vue'
 import SearchBar from '../components/SearchBar.vue'
-import SongCard from '../components/song/SongCard.vue'
+import SongCard from '../components/Songs/SongCard.vue'
 import SongsService from '../services/SongsService'
 export default {
     components: { 
@@ -93,9 +96,6 @@ export default {
             this.error = error.response.data
         }
       }, 
-      async query(ev){ 
-        console.log(ev);
-      }
     },
     async mounted(){ 
         this.fetchSongs()

@@ -45,7 +45,8 @@ export default {
         return { 
             email: '',
             password: '', 
-            error: ''
+            error: '', 
+            loading: false
         }
     },
     props: { 

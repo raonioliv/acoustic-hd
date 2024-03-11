@@ -60,7 +60,6 @@
 <script>
 import AuthenticationService  from '@/services/AuthenticationService';
 import CInput from './reusable/CInput.vue';
-import { mapGetters } from 'vuex';
 
 export default {
   components: { CInput }, 
@@ -77,8 +76,6 @@ export default {
         }
     },
     computed: { 
-        ...mapGetters('user', ['loading']),
-
         initials(){ 
             return this.userFirstName.charAt(0).toUpperCase() + this.userLastName.charAt(0).toUpperCase() 
         }
@@ -108,3 +105,15 @@ export default {
     }, 
 }
 </script>
+
+<style lang="scss">
+.form-row { 
+    display: flex;
+    gap: 20px;
+
+
+    & > div { 
+        flex-grow: 1 ;
+    }
+}
+</style>
