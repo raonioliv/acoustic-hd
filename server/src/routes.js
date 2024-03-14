@@ -7,6 +7,7 @@ const ProfileController = require('./controllers/ProfileController')
 //POLICIES
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
 const ProfileControllerPolicy = require('./policies/ProfileControllerPolicy')
+const HistoryController = require('./controllers/HistoryController')
 module.exports = (app) => { 
   app.post('/register', 
   AuthenticationControllerPolicy.register,
@@ -36,7 +37,14 @@ module.exports = (app) => {
     auth,
     BookmarkController.delete
   ),
-
+  app.post('/history', 
+  auth, 
+  HistoryController.post
+  ),
+  app.get('/history', 
+  auth, 
+  HistoryController.index
+  )
 
   app.get('/profile', 
   auth,

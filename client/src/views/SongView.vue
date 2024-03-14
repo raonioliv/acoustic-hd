@@ -38,6 +38,7 @@ import SongLyrics from '../components/SongView/SongLyrics.vue'
 import SongPlayer from '../components/SongView/SongPlayer.vue'
 import SongTab from '../components/SongView/SongTab.vue'
 import SongsService from '../services/SongsService'
+import HistoryService from '../services/HistoryService'
 export default {
   components: { SongInfo, SongPlayer, SongTab, SongLyrics },
     data(){
@@ -55,10 +56,18 @@ export default {
                 this.error = error.response
             } 
             
+        }, 
+        async postHistory(){ 
+            try {
+                await HistoryService.post(this.$route.params.songId)
+            } catch (error) {
+                console.log(error)
+            }
         }
     },
     mounted(){ 
         this.fetchSong()
+        this.postHistory()
     }
 }
 </script>
