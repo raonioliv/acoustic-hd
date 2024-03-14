@@ -17,6 +17,14 @@
             >
                 Favoritos
             </v-btn>
+            <v-btn
+                density="compact"
+                variant="text"
+                height="100%"
+                @click="$router.push('/history')"
+            >
+                Recentes
+            </v-btn>
             <!-- <v-btn
                 density="compact"
                 variant="text"

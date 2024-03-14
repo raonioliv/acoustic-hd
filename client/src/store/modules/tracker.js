@@ -11,7 +11,7 @@ const getters = {
 const actions = {
     async begin(){ 
         const {token} = JSON.parse(ls.get('ahd-user')).user
-        // console.log(token);
+        console.log(token);
         if(token){
             Api.defaults.headers.common['Authorization'] = `bearer ${token}`
         }
