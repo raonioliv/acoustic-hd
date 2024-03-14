@@ -78,6 +78,19 @@
                                 label="Nova senha"
                                 single-line
                             >
+                                <template v-slot:append-inner>
+                                    <v-btn
+                                        class="pe-0"
+                                        rounded
+                                        :icon="state.passwordState == 'password' ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
+                                        @click.prevent="state.passwordState == 'password'? state.passwordState = 'text' : state.passwordState = 'password'"
+                                        variant="plain"
+                                        :ripple="false"
+                                        size="small"
+                                    >
+                                        
+                                    </v-btn>
+                                </template>
                             </v-text-field>
                         </v-col>
                     </v-row>
@@ -88,7 +101,7 @@
                                     class="pt-0"
                                     v-show="editingPassword"
                                     v-model="new_password_repeat.value.value"
-                                    :type="state.passwordState"
+                                    :type="state.passwordStateConfirm"
                                     :error-messages="new_password_repeat.errorMessage.value"
                                     variant="solo-filled"
                                     density="compact"
@@ -96,7 +109,17 @@
                                     single-line
                                 >
                                     <template v-slot:append-inner>
-                                        <v-icon :icon="state.passwordState == 'password' ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"></v-icon>
+                                        <v-btn
+                                            class="pe-0"
+                                            rounded
+                                            :icon="state.passwordStateConfirm == 'password' ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
+                                            @click.prevent="state.passwordStateConfirm == 'password'? state.passwordStateConfirm = 'text' : state.passwordStateConfirm = 'password'"
+                                            variant="plain"
+                                            :ripple="false"
+                                            size="small"
+                                        >
+                                            
+                                        </v-btn>
                                     </template>
                                 </v-text-field>
                             </v-expand-transition>
@@ -108,6 +131,7 @@
                             <v-col cols="12" md="8">
                                 <p class="mb-3">Insira sua senha para continuar</p>
                                 <v-text-field
+                                    type="password"
                                     v-model="password.value.value"
                                     variant="solo-filled"
                                     density="compact"
@@ -170,7 +194,8 @@ const validationSchema = {
 const state = reactive({ 
     loading: false, 
     dialog: false, 
-    passwordState: 'password'
+    passwordState: 'password', 
+    passwordStateConfirm: 'password'
 })
 const { handleSubmit, handleReset, setErrors } = useForm({ 
     validationSchema: validationSchema
