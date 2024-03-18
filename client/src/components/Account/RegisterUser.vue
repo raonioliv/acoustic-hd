@@ -59,7 +59,7 @@
 
 <script>
 import AuthenticationService  from '@/services/AuthenticationService';
-import CInput from './reusable/CInput.vue';
+import CInput from '../reusable/CInput.vue';
 
 export default {
   components: { CInput }, 

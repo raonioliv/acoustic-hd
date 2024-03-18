@@ -41,8 +41,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import LoginUser from '../components/LoginUser.vue'
-import RegisterUser from '../components/RegisterUser.vue'
+import LoginUser from '../components/Account/LoginUser.vue'
+import RegisterUser from '../components/Account/RegisterUser.vue'
 export default {
   components: { RegisterUser, LoginUser },
   data(){ 
