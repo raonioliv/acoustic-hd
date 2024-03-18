@@ -19,6 +19,7 @@
 
         />
 
+        <account-recovery-form></account-recovery-form>
         <v-btn 
             type="submit"
             block
@@ -28,7 +29,6 @@
         >
             Entrar
         </v-btn>
-
         <div class="invalid-feedback">{{ error }}</div>
     </form>
 </template>
@@ -37,27 +37,24 @@
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
 import { mapGetters } from 'vuex';
-import CInput from './reusable/CInput.vue';
+import CInput from '../reusable/CInput.vue';
+import AccountRecoveryForm from './AccountRecoveryForm.vue';
 export default {
-  components: { CInput }, 
+  components: { CInput, AccountRecoveryForm }, 
 
     data(){
         return { 
             email: '',
             password: '', 
             error: '', 
-            loading: false
-        }
-    },
-    props: { 
-        theme: { 
-            type: String
+            loading: false, 
         }
     },
     computed: {
         ...mapGetters('user', { 
             token: 'token', 
         }),
+        ...mapGetters('theme', ['theme']),
     },
     methods: { 
         async login() { 
@@ -78,3 +75,15 @@ export default {
     }
 }
 </script>
+<style lang="scss" scoped>
+.reset-password{ 
+    color: #000080;
+    text-decoration: none;
+    &:hover{ 
+        text-decoration: underline;
+    }
+    &.dark{ 
+        color: white;
+    }
+}
+</style>

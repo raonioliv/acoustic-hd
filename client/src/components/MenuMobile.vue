@@ -63,12 +63,14 @@
             <nav>
                 <v-list nav>
                     <v-list-item
+                        v-if="isAuthenticated"
                         to="/profile"
                         title="Minha conta"
                         prepend-icon="mdi-account"
                     >
                     </v-list-item>
                     <v-list-item
+                        v-if="isAuthenticated"
                         to="/bookmarks"
                         title="Favoritos"
                         prepend-icon="mdi-star"

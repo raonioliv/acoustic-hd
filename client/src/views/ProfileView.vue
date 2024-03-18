@@ -26,7 +26,7 @@
 <script>
 // import ProfileService from '@/services/ProfileService'
 import { mapGetters } from 'vuex'
-import EditProfile from '../components/EditProfile.vue'
+import EditProfile from '../components/Account/EditProfile.vue'
 export default {
   components: { EditProfile },
     

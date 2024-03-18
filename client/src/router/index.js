@@ -12,6 +12,7 @@ import ProfileView from '@/views/ProfileView'
 import BookmarksView from '@/views/BookmarksView'
 import HistoryView from '@/views/HistoryView'
 
+import PasswordResetView from '@/views/PasswordResetView'
 
 const routes = [
     { path: '/register', component: RegistrationLogin },
@@ -24,7 +25,8 @@ const routes = [
     { path: '/profile', component: ProfileView},
     { path: '/bookmarks', component: BookmarksView },
 
-    { path: '/history', component: HistoryView }
+    { path: '/history', component: HistoryView },
+    { path: '/password-reset', component: PasswordResetView }
 ]
 
 

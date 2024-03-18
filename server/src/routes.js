@@ -4,16 +4,18 @@ const AuthenticationController = require('./controllers/AuthenticationController
 const SongsController = require('./controllers/SongsController')
 const BookmarkController = require('./controllers/BookmarkController')
 const ProfileController = require('./controllers/ProfileController')
+const EmailController = require('./controllers/EmailController')
 //POLICIES
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
 const ProfileControllerPolicy = require('./policies/ProfileControllerPolicy')
 const HistoryController = require('./controllers/HistoryController')
+const EmailControllerPolicy = require('./policies/EmailControllerPolicy')
 module.exports = (app) => { 
   app.post('/register', 
-  AuthenticationControllerPolicy.register,
-  AuthenticationController.register), 
+    AuthenticationControllerPolicy.register,
+    AuthenticationController.register), 
   app.post('/login',
-  AuthenticationController.login),  
+    AuthenticationController.login),  
 
   app.post('/songs', 
     SongsController.post),
@@ -52,8 +54,15 @@ module.exports = (app) => {
 
   app.put('/profile', 
   auth, 
-  ProfileControllerPolicy.editProfile,
-  ProfileController.editProfile
-  )
+    ProfileControllerPolicy.editProfile,
+    ProfileController.editProfile
+  ), 
+
+  app.post('/send-reset-password-email',
+    EmailControllerPolicy.sendEmail,
+    EmailController.sendEmail
+  ),
+  app.post('/change-password', 
+    ProfileController.changePassword)
 
 }

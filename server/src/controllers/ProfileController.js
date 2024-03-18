@@ -1,6 +1,7 @@
 const { User } = require('../models')
+const jwt = require('jsonwebtoken')
 const validationHelpers = require('../helpers/validationHelper')
-
+const config = require('../config/config')
 module.exports = { 
   async getUser(req, res){ 
     try {
@@ -58,6 +59,39 @@ module.exports = {
     } catch (error) {
       res.status(500).send({ 
         msg: 'Ocorreu um erro ao editar o perfil.'
+      })
+    }
+  }, 
+  async changePassword (req, res, next){ 
+    try {
+      const {temporaryToken, new_password, new_password_repeat} = req.body
+      const {userId} = jwt.verify(temporaryToken, config.authentication.jwtSecret)
+      let user;
+      if(userId){ 
+        user = await User.findOne({ 
+          where: { 
+            id: userId
+          }, 
+          attributes: { 
+            exclude: ['password']
+          }
+        }),
+        user = await user.update({ 
+          password: new_password
+        })
+      }
+      const userJSON = user.toJSON()
+      const ONE_WEEK = 60 * 60 * 24 * 7
+      const token = jwt.sign(userJSON, config.authentication.jwtSecret, {expiresIn: ONE_WEEK})
+      res.status(200).send({ 
+        user: user,
+        token: token,
+        msg: 'success'
+      })
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ 
+        msg: 'Um erro ocorreu provavelmente devido a expiração da sessão. Tente novamente.'
       })
     }
   }
