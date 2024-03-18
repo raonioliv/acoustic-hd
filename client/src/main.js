@@ -9,7 +9,7 @@ import SecureLS from 'secure-ls'
 
 const ls = new SecureLS({isCompression: false})
 router.beforeEach((to, from, next) => { 
-  const publicPage = ['/login', '/register', '/songs']
+  const publicPage = ['/login', '/register', '/songs', '/password-reset']
   const authRequired = !publicPage.includes(to.path)
   const user = JSON.parse(ls.get('ahd-user'))?.user
   const isAuthenticated = user.token ? true : false

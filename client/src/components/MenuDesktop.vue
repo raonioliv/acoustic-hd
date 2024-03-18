@@ -10,6 +10,7 @@
                 Explorar
             </v-btn>
             <v-btn
+                v-if="isAuthenticated"
                 density="compact"
                 variant="text"
                 height="100%"
@@ -35,7 +36,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import AccountMenu from './AccountMenu.vue'
+import AccountMenu from './Account/AccountMenu.vue'
 import SignInButton from './SignInButton.vue'
 import ToggleTheme from './ToggleTheme.vue'
 export default {
