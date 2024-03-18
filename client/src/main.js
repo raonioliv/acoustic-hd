@@ -6,8 +6,8 @@ import vuetify from './plugins/vuetify'
 import { loadFonts } from './plugins/webfontloader'
 import SecureLS from 'secure-ls'
 
-
 const ls = new SecureLS({isCompression: false})
+const DEFAULT_TITLE = 'AcousticHD'
 router.beforeEach((to, from, next) => { 
   const publicPage = ['/login', '/register', '/songs', '/password-reset']
   const authRequired = !publicPage.includes(to.path)
@@ -19,6 +19,10 @@ router.beforeEach((to, from, next) => {
   }else{ 
     next()
   }
+})
+
+router.afterEach((to) => { 
+  document.title = to.meta.title || DEFAULT_TITLE
 })
 
 loadFonts()
