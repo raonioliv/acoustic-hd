@@ -4,6 +4,12 @@ const Sequelize  =  require('sequelize')
 const config  =  require('../config/config')
 const db = {}
 
+const Song = require('./Song')
+const User = require('./User')
+const Bookmark = require('./Bookmark')
+const History  = require('./History')
+
+
 
 const sequelize = new Sequelize(
   config.db.database,
@@ -11,19 +17,10 @@ const sequelize = new Sequelize(
   config.db.pasword,
   config.db.options 
 )
-
-fs
-  .readdirSync(__dirname)
-  .filter((file) => file !== 'index.js')
-  .forEach((file) => { 
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes)
-    db[model.name] = model
-  })
-  Object.keys(db).forEach(function(modelKey) {
-    if('associate' in db[modelKey]){ 
-      db[modelKey].associate(db)
-    }
-  })
+  db['User'] = User(sequelize, Sequelize.DataTypes)
+  db['Bookmark'] = Bookmark(sequelize, Sequelize.DataTypes)
+  db['History'] = History(sequelize, Sequelize.DataTypes)
+  db['Song'] = Song(sequelize, Sequelize.DataTypes)
 
   db.sequelize = sequelize
   db.Sequelize = Sequelize

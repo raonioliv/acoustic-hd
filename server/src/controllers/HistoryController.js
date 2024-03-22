@@ -18,7 +18,7 @@ module.exports = {
         const now = new Date().getDate()
         const msDiffDate = Math.abs(now - dayViewed);
         diffDays = Math.ceil(msDiffDate / (1000 * 3600 * 24));
-        if(diferencaEmDias >= 0){ 
+        if(diffDays >= 0){ 
           history.destroy()
           history = await History.create({ 
             SongId: songId, 

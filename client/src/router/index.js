@@ -15,18 +15,61 @@ import HistoryView from '@/views/HistoryView'
 import PasswordResetView from '@/views/PasswordResetView'
 
 const routes = [
-    { path: '/register', component: RegistrationLogin },
-    { path: '/', component: HomeView, alias: '/home' },
+    { 
+        path: '/register', 
+        component: RegistrationLogin 
+    },
+    { 
+        path: '/', 
+        component: HomeView, alias: '/home' 
+    },
 
-    { path: '/songs', component: SongsPage},
-    { path: '/songs/create', component: CreateSong},
-    { path: '/songs/:songId', component: SongView},
 
-    { path: '/profile', component: ProfileView},
-    { path: '/bookmarks', component: BookmarksView },
+    { 
+        path: '/songs', 
+        component: SongsPage
+    },
+    { 
+        path: '/songs/create', 
+        component: CreateSong,
+        meta: { 
+            requiresAuth: true
+        }
+    },
+    { 
+        path: '/songs/:songId', 
+        component: SongView,
 
-    { path: '/history', component: HistoryView },
-    { path: '/password-reset', component: PasswordResetView }
+    },
+
+
+    { 
+        path: '/profile', 
+        component: ProfileView,
+        meta: { 
+            requiresAuth: true
+        }
+    },
+    { 
+        path: '/bookmarks', 
+        component: BookmarksView,
+        meta: { 
+            requiresAuth: true
+        }
+    },
+
+
+    { 
+        path: '/history', 
+        component: HistoryView,
+        meta: { 
+            requiresAuth: true
+        }
+    },
+    { 
+        path: '/password-reset', 
+        component: PasswordResetView
+    }
 ]
 
 

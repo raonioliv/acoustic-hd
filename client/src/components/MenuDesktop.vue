@@ -19,6 +19,7 @@
                 Favoritos
             </v-btn>
             <v-btn
+                v-if="isAuthenticated"
                 density="compact"
                 variant="text"
                 height="100%"

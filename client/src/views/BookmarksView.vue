@@ -26,6 +26,7 @@ export default {
         async fetchBookmarks() { 
             try {
                 const res = (await BookmarkService.index()).data
+                console.log(res);
                 this.bookmarks = res.bookmarks
             } catch (error) {
                 console.log(error.response);
