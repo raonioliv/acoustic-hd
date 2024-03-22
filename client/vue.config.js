@@ -8,6 +8,9 @@ module.exports = defineConfig({
 		}
   }, 
   devServer: {
-    disableHostCheck: true
+    allowedHosts: [
+      'onrender.com',
+      'acoustic-hd-1.onrender.com',
+    ]
   }
 })
