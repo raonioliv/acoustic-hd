@@ -17,6 +17,7 @@
                     :items-per-page="itemsPerPage"
                     :items="history"
                     hide-no-data
+                    :loading="loading"
                 >
                     <template v-slot:headers>
                         <v-card-title class="px-0">
@@ -130,6 +131,7 @@ export default{
 
     methods: { 
         async fetchHistory(){ 
+            this.loading = true
             try {
                 this.loading = true
                 const res = (await HistoryService.index()).data

@@ -18,44 +18,60 @@ const routes = [
     { 
         path: '/register', 
         component: 
-        RegistrationLogin 
+        RegistrationLogin ,
+        meta: { 
+            title: 'AcousticHD - Cadastro'
+        }
     },
     { 
         path: '/', 
         component: 
         HomeView, 
-        alias: '/home' 
+        alias: '/home',
+        meta: { 
+            title: 'AcousticHD - Home'
+        } 
     },
 
     { 
         path: '/songs', 
         component: 
-        SongsPage
+        SongsPage,
+        meta: { 
+            title: 'AcousticHD - Músicas'
+        }
     },
     { 
         path: '/songs/create', 
         component: CreateSong,
         meta:{ 
-            authRequired: true
-        }
+            authRequired: true,
+            title: 'Criar música'
+        },
     },
     { 
         path: '/songs/:songId', 
-        component: SongView
+        component: SongView, 
+        meta: { 
+            title: 'AcousticHD'
+        }
     },
 
-    { path: 
+    { 
+        path: 
         '/profile', 
         component: ProfileView,
         meta:{ 
-            authRequired: true
-        }
+            authRequired: true,
+            title: 'Minha conta'
+        }, 
     },
     { path: 
         '/bookmarks', 
         component: BookmarksView,
         meta:{ 
-            authRequired: true
+            authRequired: true, 
+            title: 'Favoritos'
         }
         
     },
@@ -65,7 +81,8 @@ const routes = [
         '/history', 
         component: HistoryView,
         meta:{ 
-            authRequired: true
+            authRequired: true,
+            title: 'Histórico'
         }
     },
     { path: 

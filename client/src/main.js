@@ -17,6 +17,7 @@ router.beforeEach((to, from, next) => {
   if(!isAuthenticated && authRequired){ 
     next('/register')
   }else{ 
+    if(to.meta.title) document.title = to.meta.title
     next()
   }
 })
