@@ -86,8 +86,8 @@ export default {
             this.errors = {}
             try {                
                 const { data } = await AuthenticationService.register({ 
-                    firstName: this.userFirstName, 
-                    lastName: this.userLastName,
+                    firstName: this.userFirstName.trim(), 
+                    lastName: this.userLastName.trim(),
                     email: this.email,
                     password: this.password,
                     repeat_password: this.passwordConfirm, 

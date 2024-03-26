@@ -172,12 +172,12 @@ const store = useStore()
 const validationSchema = { 
     firstName: value => { 
         if(!value) return 'Nome obrigatório'
-        if(!value.match(/^[a-zA-Z]+$/)) return 'Insira um nome válido'
+        if(!value.match(/^[a-zA-Z\s-']+$/)) return 'Insira um nome válido'
         return true
     },
     lastName: value => { 
         if(!value) return 'Sobrenome obrigatório'
-        if(!value.match(/^[a-zA-Z]+$/)) return 'Insira um sobrenome válido'
+        if(!value.match(/^[a-zA-Z\s-']+$/)) return 'Insira um sobrenome válido'
         return true
     }, 
     email: value => { 
@@ -242,8 +242,8 @@ const submit = handleSubmit(values => {
         return 
     }
     submitProfile({ 
-        firstName: values.firstName,
-        lastName: values.lastName,
+        firstName: values.firstName.trim(),
+        lastName: values.lastName.trim(),
         email: values.email,
         new_password: values.new_password,
         new_password_repeat: values.new_password_repeat,

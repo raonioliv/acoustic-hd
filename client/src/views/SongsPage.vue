@@ -40,8 +40,18 @@
                             />
                             </v-col>
                         </v-row>
-
-                        <v-row v-if="!songs.length">
+                        <v-row >
+                            <v-col class="d-flex justify-center">
+                                <v-progress-circular
+                                    v-if="loading"
+                                    color="primary"
+                                    size="100"
+                                    indeterminate
+                                    >
+                                </v-progress-circular>
+                            </v-col>
+                        </v-row>
+                        <v-row v-if="!songs.length && !loading">
                             <v-col>
                                 <h1 class="text-no-songs text-center font-weight-bold pa-5">Nenhuma música encontrada :(</h1>
                             </v-col>
@@ -68,7 +78,8 @@ export default {
     data(){ 
         return { 
             songs: [], 
-            searchQuery: ''
+            searchQuery: '', 
+            loading: false
         }
     },
     computed: {
@@ -85,6 +96,7 @@ export default {
       
       async fetchSongs(search){ 
         try {
+            this.loading = true
             if(search){ 
                 const response  = await SongsService.index(search)
                 this.songs = response.data
@@ -95,6 +107,7 @@ export default {
         } catch (error) {
             this.error = error.response.data
         }
+        this.loading = false
       }, 
     },
     async mounted(){ 

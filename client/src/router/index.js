@@ -15,18 +15,80 @@ import HistoryView from '@/views/HistoryView'
 import PasswordResetView from '@/views/PasswordResetView'
 
 const routes = [
-    { path: '/register', component: RegistrationLogin },
-    { path: '/', component: HomeView, alias: '/home' },
+    { 
+        path: '/register', 
+        component: 
+        RegistrationLogin ,
+        meta: { 
+            title: 'AcousticHD - Cadastro'
+        }
+    },
+    { 
+        path: '/', 
+        component: 
+        HomeView, 
+        alias: '/home',
+        meta: { 
+            title: 'AcousticHD - Home'
+        } 
+    },
 
-    { path: '/songs', component: SongsPage},
-    { path: '/songs/create', component: CreateSong},
-    { path: '/songs/:songId', component: SongView},
+    { 
+        path: '/songs', 
+        component: 
+        SongsPage,
+        meta: { 
+            title: 'AcousticHD - Músicas'
+        }
+    },
+    { 
+        path: '/songs/create', 
+        component: CreateSong,
+        meta:{ 
+            authRequired: true,
+            title: 'Criar música'
+        },
+    },
+    { 
+        path: '/songs/:songId', 
+        component: SongView, 
+        meta: { 
+            title: 'AcousticHD'
+        }
+    },
 
-    { path: '/profile', component: ProfileView},
-    { path: '/bookmarks', component: BookmarksView },
+    { 
+        path: 
+        '/profile', 
+        component: ProfileView,
+        meta:{ 
+            authRequired: true,
+            title: 'Minha conta'
+        }, 
+    },
+    { path: 
+        '/bookmarks', 
+        component: BookmarksView,
+        meta:{ 
+            authRequired: true, 
+            title: 'Favoritos'
+        }
+        
+    },
 
-    { path: '/history', component: HistoryView },
-    { path: '/password-reset', component: PasswordResetView }
+
+    { path: 
+        '/history', 
+        component: HistoryView,
+        meta:{ 
+            authRequired: true,
+            title: 'Histórico'
+        }
+    },
+    { path: 
+        '/password-reset', 
+        component: PasswordResetView 
+    }
 ]
 
 

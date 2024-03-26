@@ -9,14 +9,15 @@ import SecureLS from 'secure-ls'
 
 const ls = new SecureLS({isCompression: false})
 router.beforeEach((to, from, next) => { 
-  const publicPage = ['/login', '/register', '/songs', '/password-reset']
-  const authRequired = !publicPage.includes(to.path)
-  const user = JSON.parse(ls.get('ahd-user'))?.user
+  const authRequired = to.matched.some(record => record.meta.authRequired === true)
+  const userStore = ls.get('ahd-user') ? JSON.parse(ls.get('ahd-user')) : false
+  const user = userStore ? userStore.user : false
   const isAuthenticated = user.token ? true : false
   
   if(!isAuthenticated && authRequired){ 
     next('/register')
   }else{ 
+    if(to.meta.title) document.title = to.meta.title
     next()
   }
 })

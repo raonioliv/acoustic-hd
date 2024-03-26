@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+console.log(process.env);
 export default axios.create({ 
-    baseURL: `http://localhost:8081/`, 
+    baseURL: process.env.VUE_APP_SERVER_BASE_URL || 'http://localhost:8081/', 
 })

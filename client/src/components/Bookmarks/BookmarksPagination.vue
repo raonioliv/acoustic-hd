@@ -17,7 +17,8 @@
                     :items-per-page="itemsPerPage"
                     :items="bookmarks"
                     hide-no-data
-                >
+                    :loading="loading"
+                >   
                     <template v-slot:headers>
                         <v-card-title class="px-0">
                             <v-icon icon="mdi-music"></v-icon> &nbsp;
@@ -127,6 +128,7 @@ export default{
     methods: { 
         async unsetAsBookmark(id){ 
             try {
+                this.loading = true
                 await BookmarkService.delete({
                     songId: id
                 })
@@ -138,6 +140,7 @@ export default{
             } catch (error) {
                 console.log(error);
             }
+            this.loading = false
         },
         async fetchBookmarks(){ 
             try {
