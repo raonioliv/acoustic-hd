@@ -14,7 +14,6 @@ export default {
         })
     }, 
     submitNewPassword(credentials){ 
-        console.log(credentials);
         return Api.post('change-password', credentials)
     }
 }
