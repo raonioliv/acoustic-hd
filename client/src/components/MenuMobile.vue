@@ -82,12 +82,12 @@
                         prepend-icon="mdi-compass"
                     >
                     </v-list-item>
-                    <!-- <v-list-item
-                        to="/lists"
-                        title="Listas"
-                        prepend-icon="mdi-playlist-music"
+                    <v-list-item
+                        to="/history"
+                        title="Recentes"
+                        prepend-icon="mdi-history"
                     >
-                    </v-list-item> -->
+                    </v-list-item>
                 </v-list>
             </nav>
             <template v-slot:append >
